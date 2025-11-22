@@ -1,3 +1,42 @@
+<?php
+require_once 'connection.php';
+
+$errors = [];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if(empty($username) || empty($email) || empty($password)){
+        $errors[] = "Semua field harus diisi.";
+    }
+
+    if(empty($errors)) {
+        $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+        if($result->fetch_assoc()){
+            $errors[] = "Username atau email sudah terdaftar."; 
+        }
+        $stmt->close();
+
+        if(empty($errors)) {
+            $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $username, $email, $password);
+            $stmt->execute();
+            $stmt->close();
+
+            header("Location: login.php");
+            exit();
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +53,6 @@
                     <h4 class="card-title text-center mb-5">REGISTER</h4>
                     <form method="POST" action="">
                         <div class="mb-2">
-                            <label for="fullname" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" required>
-                        </div>
-                        <div class="mb-2">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
@@ -28,10 +63,6 @@
                         <div class="mb-2">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="confirm_password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Register</button>
                     </form>

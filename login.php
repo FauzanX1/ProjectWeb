@@ -1,3 +1,34 @@
+<?php
+require_once 'connection.php';
+
+$errors = [];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if(empty($username) || empty($password)){
+        $errors[] = "Semua field harus diisi.";
+    } else {
+        $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+        $user = $result->fetch_assoc();
+        if($user){
+            $_SESSION['user_id'] = $user['id'];
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            $errors[] = "Username atau password salah.";
+        }
+        $stmt->close();
+    }
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

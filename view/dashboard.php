@@ -1,5 +1,5 @@
 <?php
-require 'connection.php';
+require_once '../control/connection.php';
 
 $userData = getCurrentUser($conn);
 

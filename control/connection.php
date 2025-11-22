@@ -1,5 +1,11 @@
 <!-- untuk koneksi mysql dengan PHP -->
 <?php
+session_start();
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "trakteer";
+
 $conn = new mysqli($host, $user, $pass, $dbname);
 
 if ($conn->connect_error) {

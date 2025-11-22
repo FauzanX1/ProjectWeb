@@ -1,5 +1,6 @@
 <?php
-require 'connection.php';
+require_once '../control/connection.php';
+
 $userData = getCurrentUser($conn);
 
 if (!$userData) {
@@ -8,7 +9,7 @@ if (!$userData) {
 }
 
 if ($userData['role'] !== 'creator') {
-    header("Location: switch_role.php");
+    header("Location: ../control/switch_role.php");
     exit();
 }
 

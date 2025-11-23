@@ -91,6 +91,9 @@ $statement->close();
             <li class="nav-item">
                 <a href="../control/switch_role.php" class="nav-link">Creator Mode</a>
             </li>
+            <li class="nav-item">
+                <a href="riwayat.php" class="nav-link">Riwayat</a>
+            </li>
             <hr class="text-secondary">
             <li class="nav-item">
                 <a href="logout.php" class="nav-link">Logout</a>

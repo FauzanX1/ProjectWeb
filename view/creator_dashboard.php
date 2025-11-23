@@ -103,6 +103,9 @@ $statement->close();
             <li class="nav-item">
                 <a href="../control/switch_user.php" class="nav-link active-menu">User Mode</a>
             </li>
+                        <li class="nav-item">
+                <a href="riwayat.php" class="nav-link active-menu">Riwayat</a>
+            </li>
             <hr class="text-secondary">
             <li class="nav-item">
                 <a href="logout.php" class="nav-link">Logout</a>
@@ -111,75 +114,76 @@ $statement->close();
     </div>
 
     <div class="topbar">
-        <h5 class="text-light m-0">Creator Dashboard</h5>
+        <h5 class="text-light m-0">Discover</h5>
         <div>
-            <span class="me-3">Saldo:
-                <strong>Rp <?= number_format($userData['balance'], 0, ',', '.') ?></strong>
-            </span>
-            
+            <?php if ($userData): ?>
+            <span class="me-3">Saldo: <strong>Rp <?php echo number_format($userData['balance'], 0, ',', '.'); ?></strong></span>
             <div class="dropdown d-inline">
                 <a href="#" class="text-light dropdown-toggle" data-bs-toggle="dropdown">
                 <?php echo $userData['username']; ?>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="../control/switch_user.php">Kembali ke User Mode</a></li>
-                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-            </ul>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="creator_dashboard.php">Creator Mode</a></li>
+                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                </ul>
+            </div>
+            <?php else: ?>
+            <a href="login.php" class="btn btn-primary">Login</a>
+            <?php endif; ?>
         </div>
     </div>
-    </div>
     
-<div class="content">
-    <?php if (isset($_SESSION['status']) && isset($_SESSION['message'])): ?>
-        <div class="alert alert-<?php echo htmlspecialchars($_SESSION['status']); ?> alert-dismissible fade show" role="alert">
-            <?php echo htmlspecialchars($_SESSION['message']); ?>
-            <button type="submit" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php 
-        // HAPUS Sesi setelah ditampilkan
-        unset($_SESSION['status']);
-        unset($_SESSION['message']);
-        ?>
-    <?php endif; ?>
-    
-        <h3 class="mb-4">Your Contents</h3>
-        <div class="card card-dark p-4 mb-4">
-            <h4 class="mb-3">Top UP Saldo</h4>
-            <form class="row g-2" method="POST" action="../control/topup.php">
-                <div class="col-md-4">
-                    <input name="amount" type="number" step="0.01" class="form-control" placeholder="Masukan jumlah top up">
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary">Top UP</button>
-                </div>
-            </form>
-        </div>
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Konten KU</h3>
-        <a href="add_content.php" class="btn btn-success">Tambah Konten</a>
+    <div class="content">
+        <?php if (isset($_SESSION['status']) && isset($_SESSION['message'])): ?>
+            <div class="alert alert-<?php echo htmlspecialchars($_SESSION['status']); ?> alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($_SESSION['message']); ?>
+                <button type="submit" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php 
+            // HAPUS Sesi setelah ditampilkan
+            unset($_SESSION['status']);
+            unset($_SESSION['message']);
+            ?>
+        <?php endif; ?>
         
-    </div>
+            <h3 class="mb-4">Your Contents</h3>
+            <div class="card card-dark p-4 mb-4">
+                <h4 class="mb-3">Top UP Saldo</h4>
+                <form class="row g-2" method="POST" action="../control/topup.php">
+                    <div class="col-md-4">
+                        <input name="amount" type="number" step="0.01" class="form-control" placeholder="Masukan jumlah top up">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Top UP</button>
+                    </div>
+                </form>
+            </div>
 
-    <div class="row">
-        <?php if(empty($creatorContents)): ?>
-            <p>Kamu belum memiliki konten.</p>
-        <?php else: ?>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Konten KU</h3>
+            <a href="add_content.php" class="btn btn-success">Tambah Konten</a>
             
-            <?php foreach ($creatorContents as $content): ?> <div class="col-md-4">
-                    <div class="card card-dark mb-3">
-                        <div class="card-body">
-                            <h5><?php echo $content['title']; ?></h5>
-                            <p><?php echo $content['description']; ?></p>
-                            <p><strong>Price: Rp <?php echo number_format($content['price'], 0, ',', '.'); ?></strong></p>
-                            <a href="edit_content.php?id=<?php echo $content['id']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="../control/delete_content.php?id=<?php echo $content['id']; ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus konten ini?');">Delete</a>
+        </div>
+
+        <div class="row">
+            <?php if(empty($creatorContents)): ?>
+                <p>Kamu belum memiliki konten.</p>
+            <?php else: ?>
+                
+                <?php foreach ($creatorContents as $content): ?> <div class="col-md-4">
+                        <div class="card card-dark mb-3">
+                            <div class="card-body">
+                                <h5><?php echo $content['title']; ?></h5>
+                                <p><?php echo $content['description']; ?></p>
+                                <p><strong>Price: Rp <?php echo number_format($content['price'], 0, ',', '.'); ?></strong></p>
+                                <a href="edit_content.php?id=<?php echo $content['id']; ?>" class="btn btn-warning">Edit</a>
+                                <a href="../control/delete_content.php?id=<?php echo $content['id']; ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus konten ini?');">Delete</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

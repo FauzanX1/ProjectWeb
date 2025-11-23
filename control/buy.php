@@ -27,6 +27,9 @@ $price = $content['price'];
 $creatorId = $content['user_id'];
 $amount = $isSupported ? $price * 0.5 : $price;
 
+//Tipe transaksi
+$type = $isSupported ? 'support' : 'buy';
+
 //Ambil saldo user
 $sql = "SELECT balance FROM users WHERE id = ?";
 $stmt = $conn->prepare($sql);
@@ -53,6 +56,14 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("di", $amount, $contentId);
 $stmt->execute();
 $stmt->close();
+
+//Catat transaksi
+$sql = "INSERT INTO purchases (buyer_id, content_id, amount, type) VALUES (?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("iids", $userId, $contentId, $amount, $type);
+$stmt->execute();
+$stmt->close();
+
 echo "<script>alert('Pembelian berhasil!'); window.location.href = '../view/dashboard.php';</script>";
 exit();
 ?>

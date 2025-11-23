@@ -11,7 +11,7 @@ $contentId = $_POST['content_id'];
 $isSupported = isset($_POST['support']);
 
 //Ambil harga konten
-$sql = "SELECT price FROM contents WHERE id = ?";
+$sql = "SELECT price, user_id FROM contents WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $contentId);
 $stmt->execute();
@@ -24,6 +24,7 @@ if (!$content) {
 
 // Harga Support
 $price = $content['price'];
+$creatorId = $content['user_id'];
 $amount = $isSupported ? $price * 0.5 : $price;
 
 //Ambil saldo user

@@ -137,9 +137,10 @@ $statement->close();
                                     <input type="hidden" name="content_id" value="<?php echo $content['id']; ?>">
                                     <button type="submit" class="btn btn-success">Buy</button>
                                 </form>
-                                <form method="post" action="buy.php" class="d-inline">
-                                    <input type="hidden" name="creator_id" value="<?php echo $content['user_id']; ?>">
-                                    <button type="submit" class="btn btn-warning">Support Creator<</button>
+                                <form method="post" action="../control/buy.php" class="d-inline">
+                                    <input type="hidden" name="content_id" value="<?php echo $content['id']; ?>">
+                                    <input type="hidden" name="support" value="1">
+                                    <button type="submit" class="btn btn-warning">Support Creator</button>
                                 </form>
                             <?php else: ?>
                                 <a href="login.php" class="btn btn-primary">Login to Buy</a>

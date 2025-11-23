@@ -18,9 +18,10 @@ $statement = $conn->prepare($sql);
 $statement->bind_param("i", $userData['id']);
 $statement->execute();
 $result = $statement->get_result();
-$userContents = $result->fetch_all(MYSQLI_ASSOC);
+$creatorContents = $result->fetch_all(MYSQLI_ASSOC); // <-- Diubah menjadi $creatorContents
 $statement->close();
-?>
+
+?>?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,7 +129,19 @@ $statement->close();
     </div>
     </div>
     
-    <div class="content">
+<div class="content">
+    <?php if (isset($_SESSION['status']) && isset($_SESSION['message'])): ?>
+        <div class="alert alert-<?php echo htmlspecialchars($_SESSION['status']); ?> alert-dismissible fade show" role="alert">
+            <?php echo htmlspecialchars($_SESSION['message']); ?>
+            <button type="submit" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php 
+        // HAPUS Sesi setelah ditampilkan
+        unset($_SESSION['status']);
+        unset($_SESSION['message']);
+        ?>
+    <?php endif; ?>
+    
         <h3 class="mb-4">Your Contents</h3>
         <div class="card card-dark p-4 mb-4">
             <h4 class="mb-3">Top UP Saldo</h4>
@@ -145,6 +158,7 @@ $statement->close();
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Konten KU</h3>
         <a href="add_content.php" class="btn btn-success">Tambah Konten</a>
+        
     </div>
 
     <div class="row">
@@ -152,15 +166,14 @@ $statement->close();
             <p>Kamu belum memiliki konten.</p>
         <?php else: ?>
             
-            <?php foreach ($creatorContents as $content): ?>
-                <div class="col-md-4">
+            <?php foreach ($creatorContents as $content): ?> <div class="col-md-4">
                     <div class="card card-dark mb-3">
                         <div class="card-body">
                             <h5><?php echo $content['title']; ?></h5>
                             <p><?php echo $content['description']; ?></p>
                             <p><strong>Price: Rp <?php echo number_format($content['price'], 0, ',', '.'); ?></strong></p>
                             <a href="edit_content.php?id=<?php echo $content['id']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="delete_content.php?id=<?php echo $content['id']; ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus konten ini?');">Delete</a>
+                            <a href="../control/delete_content.php?id=<?php echo $content['id']; ?>" class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus konten ini?');">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -168,4 +181,5 @@ $statement->close();
         <?php endif; ?>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

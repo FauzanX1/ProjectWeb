@@ -1,15 +1,12 @@
 <?php
 require_once '../control/connection.php';
-// Ganti 'auth.php' jika fungsi getCurrentUser ada di file lain
 $userData = getCurrentUser($conn);
 
-// Cek Otentikasi
 if (!$userData || $userData['role'] !== 'creator') {
     header("Location: login.php");
     exit();
 }
 
-// 1. Ambil ID konten dari URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: creator_dashboard.php");
     exit();
@@ -18,7 +15,6 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $content_id = $_GET['id'];
 $user_id = $userData['id'];
 
-// 2. Ambil data konten dari database
 $sql = "SELECT * FROM contents WHERE id = ? AND user_id = ?";
 $statement = $conn->prepare($sql);
 $statement->bind_param("ii", $content_id, $user_id);
@@ -27,17 +23,11 @@ $result = $statement->get_result();
 $content = $result->fetch_assoc();
 $statement->close();
 
-// 3. Cek apakah konten ditemukan dan dimiliki oleh user yang login
 if (!$content) {
     header("Location: creator_dashboard.php?status=danger&message=" . urlencode("Content not found or you are not authorized to edit it."));
     exit();
 }
 
-// Jika menggunakan Session untuk notifikasi, ambil pesannya di sini
-// $status = $_SESSION['status'] ?? null;
-// $message = $_SESSION['message'] ?? null;
-// unset($_SESSION['status']);
-// unset($_SESSION['message']);
 ?>
 
 

@@ -89,7 +89,7 @@ $statement->close();
                 <a href="dashboard.php" class="nav-link active-menu" >Discover</a>
             </li>
             <li class="nav-item">
-                <a href="switch_role.php" class="nav-link">Creator Mode</a>
+                <a href="../control/switch_role.php" class="nav-link">Creator Mode</a>
             </li>
             <hr class="text-secondary">
             <li class="nav-item">
@@ -102,7 +102,7 @@ $statement->close();
         <h5 class="text-light m-0">Discover</h5>
         <div>
             <?php if ($userData): ?>
-            <span class="me-3">Saldo: <strong>Rp <?php echo number_format($userData['saldo'], 0, ',', '.'); ?></strong></span>
+            <span class="me-3">Saldo: <strong>Rp <?php echo number_format($userData['balance'], 0, ',', '.'); ?></strong></span>
             <div class="dropdown d-inline">
                 <a href="#" class="text-light dropdown-toggle" data-bs-toggle="dropdown">
                 <?php echo $userData['username']; ?>

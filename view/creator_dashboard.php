@@ -100,7 +100,7 @@ $statement->close();
                 <a href="dashboard.php" class="nav-link">Discover</a>
             </li>
             <li class="nav-item">
-                <a href="switch_role.php" class="nav-link active-menu">User Mode</a>
+                <a href="../control/switch_user.php" class="nav-link active-menu">User Mode</a>
             </li>
             <hr class="text-secondary">
             <li class="nav-item">
@@ -121,10 +121,11 @@ $statement->close();
                 <?php echo $userData['username']; ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="switch_to_user.php">Kembali ke User Mode</a></li>
+                <li><a class="dropdown-item" href="../control/switch_user.php">Kembali ke User Mode</a></li>
                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
         </div>
+    </div>
     </div>
     
     <div class="content">

@@ -10,6 +10,6 @@ $sql = "UPDATE users SET role = 'user' WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
-header("Location: ../view/user_dashboard.php");
+header("Location: ../view/dashboard.php");
 exit();
 ?>

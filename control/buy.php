@@ -47,7 +47,7 @@ $stmt->execute();
 $stmt->close();
 
 //Tambahkan saldo creator
-$sql = "UPDATE usesrs SET balance = balance + ? WHERE id = ?";
+$sql = "UPDATE users SET balance = balance + ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("di", $amount, $contentId);
 $stmt->execute();

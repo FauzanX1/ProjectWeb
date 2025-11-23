@@ -132,7 +132,7 @@ $statement->close();
         <h3 class="mb-4">Your Contents</h3>
         <div class="card card-dark p-4 mb-4">
             <h4 class="mb-3">Top UP Saldo</h4>
-            <form class="row g-2" method="POST" action="topup.php">
+            <form class="row g-2" method="POST" action="../control/topup.php">
                 <div class="col-md-4">
                     <input name="amount" type="number" step="0.01" class="form-control" placeholder="Masukan jumlah top up">
                 </div>

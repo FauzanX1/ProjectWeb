@@ -133,7 +133,7 @@ $statement->close();
                             <p><strong>Price: Rp <?php echo number_format($content['price'], 0, ',', '.'); ?></strong></p>
 
                             <?php if ($userData): ?>
-                                <form method="post" action="buy.php" class="d-inline">
+                                <form method="post" action="../control/buy.php" class="d-inline">
                                     <input type="hidden" name="content_id" value="<?php echo $content['id']; ?>">
                                     <button type="submit" class="btn btn-success">Buy</button>
                                 </form>

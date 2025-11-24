@@ -21,7 +21,7 @@ $result = $statement->get_result();
 $creatorContents = $result->fetch_all(MYSQLI_ASSOC); // <-- Diubah menjadi $creatorContents
 $statement->close();
 
-?>?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,9 +103,10 @@ $statement->close();
             <li class="nav-item">
                 <a href="../control/switch_user.php" class="nav-link active-menu">User Mode</a>
             </li>
-                        <li class="nav-item">
-                <a href="riwayat.php" class="nav-link active-menu">Riwayat</a>
+            <li class="nav-item">
+                <a href="riwayat.php" class="nav-link ">Riwayat</a>
             </li>
+            
             <hr class="text-secondary">
             <li class="nav-item">
                 <a href="logout.php" class="nav-link">Logout</a>
@@ -114,7 +115,7 @@ $statement->close();
     </div>
 
     <div class="topbar">
-        <h5 class="text-light m-0">Discover</h5>
+        <h5 class="text-light m-0">Creator Dashboard</h5>
         <div>
             <?php if ($userData): ?>
             <span class="me-3">Saldo: <strong>Rp <?php echo number_format($userData['balance'], 0, ',', '.'); ?></strong></span>

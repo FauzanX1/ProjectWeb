@@ -22,7 +22,7 @@ $statement->close();
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard - MiniTrakteer</title>
+<title>Riwayat - MiniTrakteer</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
     body {
@@ -94,7 +94,7 @@ $statement->close();
         <h4 class="text-light mb-4">MiniTrakteer</h4>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="dashboard.php" class="nav-link active-menu" >Discover</a>
+                <a href="dashboard.php" class="nav-link " >Discover</a>
             </li>
             <li class="nav-item">
                 <a href="../control/switch_role.php" class="nav-link">Creator Mode</a>
@@ -110,7 +110,7 @@ $statement->close();
     </div>
 
     <div class="topbar">
-        <h5 class="text-light m-0">Discover</h5>
+        <h5 class="text-light m-0">Riwayat</h5>
         <div>
         <?php if(isUserLoggedIn()): ?>
             <?php else: ?>

@@ -53,7 +53,7 @@ $stmt->close();
 //Tambahkan saldo creator
 $sql = "UPDATE users SET balance = balance + ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("di", $amount, $contentId);
+$stmt->bind_param("di", $amount, $creatorId);
 $stmt->execute();
 $stmt->close();
 

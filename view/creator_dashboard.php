@@ -147,7 +147,7 @@ $statement->close();
             ?>
         <?php endif; ?>
         
-            <h3 class="mb-4">Your Contents</h3>
+            <!-- <h3 class="mb-4">Your Contents</h3> -->
             <div class="card card-dark p-4 mb-4">
                 <h4 class="mb-3">Top UP Saldo</h4>
                 <form class="row g-2" method="POST" action="../control/topup.php">

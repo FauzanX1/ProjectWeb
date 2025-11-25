@@ -2,14 +2,15 @@
 require_once '../control/connection.php';
 
 $errors = [];
-
+// Action saat form login disubmit
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $username = $_POST['username'];
     $password = $_POST['password'];
-
+    // Validasi formulir
     if(empty($username) || empty($password)){
         $errors[] = "Semua field harus diisi.";
     } else {
+        //Cek user
         $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $username, $password);

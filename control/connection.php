@@ -11,10 +11,14 @@ $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Fungsi untuk memeriksa apakah user sudah login
 function isUserLoggedIn() {
     return isset($_SESSION['user_id']);
 }
 
+
+// Fungsi untuk mendapatkan data user saat ini
 function getCurrentUser($conn) {
     if (!isUserLoggedIn()) {
         return null;

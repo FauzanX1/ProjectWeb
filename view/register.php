@@ -3,15 +3,16 @@ require_once '../control/connection.php';
 
 $errors = [];
 
+// Action saat form registrasi disubmit
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
+    // Validasi formulir
     if(empty($username) || empty($email) || empty($password)){
         $errors[] = "Semua field harus diisi.";
     }
-
+    // Cek apakah username atau email sudah terdaftar
     if(empty($errors)) {
         $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
         $stmt = $conn->prepare($sql);
@@ -22,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $errors[] = "Username atau email sudah terdaftar."; 
         }
         $stmt->close();
-
+        // Jika tidak ada error, simpan data user baru
         if(empty($errors)) {
             $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);

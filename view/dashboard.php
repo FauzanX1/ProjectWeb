@@ -1,8 +1,7 @@
 <?php
 require_once '../control/connection.php';
-
+// Ambil data user saat ini
 $userData = getCurrentUser($conn);
-
 $sql = "SELECT c.*, u.username FROM contents c JOIN users u ON u.id = c.user_id ORDER BY c.created_at DESC";
 $statement = $conn->prepare($sql);
 $statement->execute();

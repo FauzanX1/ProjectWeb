@@ -18,7 +18,7 @@ $statement = $conn->prepare($sql);
 $statement->bind_param("i", $userData['id']);
 $statement->execute();
 $result = $statement->get_result();
-$creatorContents = $result->fetch_all(MYSQLI_ASSOC); // <-- Diubah menjadi $creatorContents
+$creatorContents = $result->fetch_all(MYSQLI_ASSOC);
 $statement->close();
 
 ?>
